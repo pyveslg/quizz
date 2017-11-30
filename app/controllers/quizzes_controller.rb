@@ -5,13 +5,9 @@ class QuizzesController < ApplicationController
   end
 
   def show
-    @quiz = Quiz.find(params[:id])
+    @quiz = Quiz.find_by("quizz_slug = '#{params[:quizz_slug]}'")
     @questions = @quiz.questions
-    @questions.each_with_index do |question, index|
-      question.current_index = index + 1
-      question.save
-    end
-    redirect_to question_path(@questions.first)
+    @questions_ids = @questions.pluck(:id)
   end
 
 end

@@ -5,17 +5,33 @@
   <li><%= @question.prop3 %></li>
 </ol>
 
-<input type="text" name="quiz_id" value="<%= @question.quiz_id %>" class="hidden">
+
+<%= form_for(@question)  do |f| %>
+  <%= f.label :current_index %>
+  <%= f.text_field :current_index %>
+  <%= f.submit %>
+<% end %>
+
+
+
+<% if @next_id.nil? %>
+ <input type="submit" value="Check your results">
+<% else %>
+ <input type="submit" value="Next Question">
+<% end %>
+
 <input type="text" name="current_index" value="<%= @question.current_index %>" class="hidden">
-<input type="submit" value="Next Question">
 
+<% if !@previous_id.nil? %>
+  <input type="submit" value="Previous Question">
+<% end %>
 
-questions/4?quiz_id=3&current_index=0&choice=3
+<!-- questions/4?quiz_id=3&current_index=0&choice=3
 
 => link_quiz = @question.quizzes
    @question.choice == 3 ? link_quizz.score += 1
 => if @question.current_index]<link_quiz.questions.length
     current_index += 1
 
-    redirect_to question_path(questions[current_index-1])
+    redirect_to question_path(questions[current_index-1]) -->
 

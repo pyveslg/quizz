@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171124161123) do
+ActiveRecord::Schema.define(version: 20171130173406) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -28,6 +28,14 @@ ActiveRecord::Schema.define(version: 20171124161123) do
     t.index ["quiz_id"], name: "index_questions_on_quiz_id"
   end
 
+  create_table "quiz_sessions", force: :cascade do |t|
+    t.bigint "quiz_id"
+    t.float "score"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["quiz_id"], name: "index_quiz_sessions_on_quiz_id"
+  end
+
   create_table "quizzes", force: :cascade do |t|
     t.string "quizz_slug"
     t.string "quizz_name"
@@ -35,7 +43,9 @@ ActiveRecord::Schema.define(version: 20171124161123) do
     t.integer "score"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.boolean "played"
   end
 
   add_foreign_key "questions", "quizzes"
+  add_foreign_key "quiz_sessions", "quizzes"
 end

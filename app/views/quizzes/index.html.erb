@@ -1,0 +1,17 @@
+<div class="container">
+  <div class="row">
+    <% @quizzes.each do |quiz| %>
+      <div class="col-xs-3">
+        <h1><%= quiz.id %></h1>
+        <h3><%= quiz.quizz_name %></h3>
+        <%= form_for (QuizSession.new) do |f| %>
+          <%= f.text_field :quiz_id, value: quiz.id, class:"hidden" %>
+          <%= f.submit %>
+        <% end %>
+        <%= link_to "show", quiz_path(quiz) %>
+      </div>
+    <% end %>
+  </div>
+
+
+</div>
